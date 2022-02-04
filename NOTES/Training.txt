@@ -1,0 +1,860 @@
+
+
+
+
+
+								DAY         3
+
+
+
+
+
+
+# Bank Account - Interface
+
+KGFB is a financial institution that provides facilities such as current account and savings account to its customers. 
+To add to its facilities they have come up with the locker that is chargeable. Since it is a new facility introduced, many customers have approached them to enquire about this facility.
+
+To make the banking service effective, KGFB plans to automate the calculation of the locker maintenance charges based on the various account types and the duration.(in years).
+
+Help them by creating a Java application that caters to their requirement.
+-----------------------------------------------------------------------------------------------------------------------------
+## Requirement 1: Maintenance Charge Calculation
+
+The customer needs to provide information like account type, customer name, account number, balance and number of years to calculate the maintenance charge.
+
+### Component Specification: Account Class (Parent Class)
+
+| Type (Class) | Attributes | Methods | Responsibilities |
+| ------------ | ---------- | ------- | ---------------- |
+| Account | String accountNumber<br>String customerName<br>double balance | Include a public getter and setter methods.
+<br><br>Include   a public 3 argument constructor in the order -  accountNumber, customerName, balance |  |
+ 
+### Component Specification: MaintenanceCharge (Interface)
+
+| Component Name | Type (Interface) | Methods | Responsibilities |
+| -------------- | ---------------- | ------- | ---------------- |
+| Maintenance Charge Calculation | MaintenanceCharge | `public float calculateMaintenanceCharge(float noOfYears)` | 
+This is an abstract method and it should calculate the maintenance charge based on the number of years and account type and return the result. | 
+
+ 
+
+### Component Specification: CurrentAccount Class (should be a child of Account Class and implement MaintenanceCharge interface)
+
+| Component Name | Type (Interface) | Methods | Responsibilities |
+| -------------- | ---------------- | ------- | ---------------- |
+Maintenance Charge Calculation | CurrentAccount | Include  a public 3 argument constructor in the order -  customerName, accountNumber, balance |  | 
+
+### Component Specification: SavingsAccount Class (should be a child of Account Class and implement MaintenanceCharge interface)
+
+| Component Name | Type (Interface) | Methods | Responsibilities |
+| -------------- | ---------------- | ------- | ---------------- |
+Maintenance Charge Calculation | SavingsAccount | Include  a public 3 argument constructor in the order -  customerName, accountNumber, balance |  |
+
+Both the child classes CurrentAccount and SavingsAccount should override the calculateMaintenanceCharge(float noOfYears) method.
+
+The calculateMaintenanceCharge(float noOfYears) should return the maintenance charge based on the number of years and the account type.
+
+The Maintenance Charge needs to be calculated as shown below:
+
+For Savings Account:  Maintenance Charge = (m * n) + 50
+
+For Current Account:  Maintenance Charge = (m * n) + 200
+
+Here, m is the base charge per year and n is the number of years. The base charge m, is Rs.50 for a Savings account and Rs.100 for a Current account. The number of years n, should be taken as input from the user as noOfYears.
+
+Implement the calculateMaintenanceCharge method in the CurrentAccount and the SavingsAccount class based on the above assumption.
+
+All class, interface and methods need to be public and attributes need to be private.
+
+Write a class UserInterface with the main method to test the above functionality.
+
+> Sample Input 1:
+
+    1. Savings Account
+    2. Current Account
+    Enter your choice:
+    2
+    Enter the Account number
+    123456789
+    Enter the Customer Name
+    Rohit
+    Enter the Balance amount
+    5000
+    Enter the number of years
+    2
+
+> Sample Output 1:
+
+    Customer Name Rohit
+    Account Number 123456789
+    Account Balance 5000.0
+    Maintenance Charge for Current Account is Rs 400.0
+
+--- 
+
+> Sample Input 2:
+
+    1. Current Account
+    2. Savings Account
+    Enter your choice:
+    1
+    Enter the Account number
+    123456798
+    Enter the Customer Name
+    Rohini
+    Enter the Balance amount
+    5000
+    Enter the number of years
+    2
+
+> Sample Output 2:
+
+    Customer Name Rohini
+    Account Number 123456798
+    Account Balance 5000.0
+    Maintenance Charge for Savings Account is Rs 150.0
+
+
+answer for this code is 
+package Day3.demo;
+import java.util.*;
+
+class Bankdetails
+{
+	//like account type, customer name, account number, balance and number of years to calculate the maintenance charge.
+	
+	double sysout() 
+	{
+		Scanner sc= new Scanner(System.in);
+		//name of coustomer
+		System.out.println("enter your Name");
+		String name=sc.next();
+		System.out.println("Customer Name "+ name);
+		
+		//acount no
+		System.out.println("enter your Account number");
+		long accno=sc.nextLong();
+		System.out.println("Account number is "+ accno);
+		
+		// balance 
+		System.out.println("enter your Balance");
+		long bal=sc.nextLong();
+		System.out.println("Account number is "+ bal);
+		//number of years
+		System.out.println("Enter the number of years");
+		double years=sc.nextDouble();
+		//System.out.println("years  "+ years);
+		return years;
+	}
+	
+}
+ class calculateMaintenanceCharge
+{
+		double CurrentAccount(double n1) {
+			double m=100;
+			//double n11= noOfYears;
+			double MaintenanceCharge = (m * n1) + 200;
+			return MaintenanceCharge;
+		}
+		double SavingsAccount(double n) {
+			double m=50;
+			//double n= noOfYears;
+			double MaintenanceCharge = (m * n) + 50;
+			return MaintenanceCharge;
+		}
+}
+public class KgfbBankaccount {
+
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+	    System.out.println("1. Savings Account");
+	    System.out.println("2. Current Account");
+	    System.out.println("Enter your choice: 1 or 2 ");
+	    int choice=sc.nextInt();
+		switch(choice )
+		{
+		case 1:
+
+		    System.out.println("1");
+		    Bankdetails bd= new Bankdetails();
+			double no=bd.sysout();
+			calculateMaintenanceCharge cm= new calculateMaintenanceCharge();
+			System.out.println("Maintenance Charge for Current Account is "+cm.SavingsAccount(no) ); 
+		    break;
+		case 2:
+			
+		    System.out.println("2");
+		    Bankdetails bd2= new Bankdetails();
+			double no1=bd2.sysout();
+			calculateMaintenanceCharge cm1= new calculateMaintenanceCharge();
+			System.out.println("Maintenance Charge for Current Account is "+cm1.CurrentAccount(no1)); 
+		    break;
+		    
+		 default:
+			System.out.println("plz choose correctly");
+			break;
+		}
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hands-on Assignments for Overriding / Polymorphism
+
+
+
+No. 	Hands-on Assignment 	Topics Covered 	Status
+
+1 	
+
+ Create  a base class Fruit which has name ,taste and size as its attributes. 
+ A method called eat() is created which describes the name of the fruit and its taste.  Inherit the same in 2 other class Apple and Orange and override the eat() method 
+to represent each fruit taste.
+
+
+answer for this code is 
+
+package Day3.demo;
+
+/*Create  a base class Fruit which has name ,taste and size as its attributes. 
+A method called eat() is created which describes the name of the fruit and its taste.  
+Inherit the same in 2 other class Apple and Orange and override the eat() method 
+to represent each fruit taste.*/
+class Fruit
+{
+	void name()
+	{
+		System.out.println("Fruit name is ");
+	}
+	void taste()
+	{
+		System.out.println("Fruit taste is ");
+	}
+	void size()
+	{
+		System.out.println("Fruit size is ");
+	}
+	void eat()
+	{
+		System.out.println("fruit is eatable");
+	}
+}
+class Apple extends Fruit
+{
+	public void eat() {
+			System.out.println("Name of the fruit is APPLE and it Tasts SWEET");
+	}
+}
+class Orange extends Fruit
+{
+	public void eat() {
+		System.out.println("Name of the fruit is ORANGE and it Tasts TANGY");
+}
+}
+public class FruitClass {
+
+	public static void main(String[] args) 
+	{
+		
+		Fruit fruit= new Apple();
+		fruit.eat();
+
+	}
+
+}
+
+
+	Inheritance / Overriding 	
+
+2 	
+
+ Write a program to create a class named shape. It should contain 2 methods- draw() and erase() which should print “Drawing Shape” and “Erasing Shape” respectively.
+For this class we have three sub classes- Circle, Triangle and Square and each class override the parent class functions- draw () and erase (). 
+The draw() method should print “Drawing Circle”, “Drawing Triangle”, “Drawing Square” respectively.
+The erase() method should print “Erasing Circle”, “Erasing Triangle”, “Erasing Square” respectively.
+Create objects of Circle, Triangle and Square in the following way and observe the polymorphic nature of the class by calling draw() and erase() method using each object.
+Shape c=new Circle();
+Shape t=new Triangle();
+Shape s=new Square();
+
+soultion for this code is 
+
+package Day3.demo;
+
+
+/* 
+ * Write a program to create a class named shape. 
+ *  It should contain 2 methods- draw() and erase() which should print “Drawing Shape” and “Erasing Shape” respectively.
+For this class we have three sub classes- Circle, Triangle and Square and each class override the parent class functions- draw () and erase (). 
+The draw() method should print “Drawing Circle”, “Drawing Triangle”, “Drawing Square” respectively.
+The erase() method should print “Erasing Circle”, “Erasing Triangle”, “Erasing Square” respectively.
+Create objects of Circle, 
+Triangle and Square in the following way and observe the polymorphic nature of the class by calling draw() and erase() method using each object.
+Shape c=new Circle();
+Shape t=new Triangle();
+Shape s=new Square();
+ */
+
+class Shape
+{
+	void Draw() 
+	{
+		System.out.println("Drawing Shape");
+	}
+	void Erase() 
+	{
+		System.out.println("Erasing Shape");
+	}
+}
+class Circle extends Shape
+{
+	public void Draw()
+	{
+		System.out.println("Drawing Circle");
+	}
+	
+	public void Erase()
+	{
+		System.out.println("Erasing Circle");
+	}
+}
+class Triangle extends Shape
+{
+	public void Draw()
+	{
+		System.out.println("Drawing Triangle");
+	}
+	public void Erase()
+	{
+		System.out.println("Erasing Triangle");
+	}
+}
+class Square extends Shape
+{
+	public void Draw()
+	{
+		System.out.println("Drawing Square");
+	}
+	public void Erase()
+	{
+		System.out.println("Erasing Square");
+	}
+}
+
+public class ShapeClass {
+
+	public static void main(String[] args) {
+		
+		Shape c = new Circle();
+		c.Draw();
+		c.Erase();
+		Shape t = new Triangle();
+		t.Draw();
+		t.Erase();
+		Shape s = new Square();
+		s.Draw();
+		s.Erase();
+
+	}
+
+}
+
+
+
+
+Hands-on Assignments for Encapsulation / Abstraction
+
+
+
+No. 	Hands-on Assignment 	Topics Covered 	Status
+
+1 	
+
+ CCreate a class called Author is designed as follows:
+
+It contains:
+• Three private instance variables: name (String), email (String), and gender (char of either ‘m’ or ‘f’).
+• One constructor to initialize the name, email and gender with the given values.
+
+And, a class called Book is designed as follows:
+It contains:
+• Four private instance variables: name (String), author (of the class Author you have just created), price (double), and qtyInStock (int). Assuming that each book is written by one author.
+• One constructor which constructs an instance with the values given.
+• Getters and setters: getName(), getAuthor(), getPrice(), setPrice(), getQtyInStock(), setQtyInStock(). Again there is no setter for name and author.
+Write the class Book (which uses the Author class written earlier). 
+Try:
+1. Printing the book name, price and qtyInStock from a Book instance. (Hint: aBook.getName())
+2. After obtaining the “Author” object, print the Author (name, email & gender) of the book.
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+							DAY 					5
+
+
+
+
+
+
+
+1 	
+
+ Write a Program that will check whether a given String is Palindrome or not
+
+	String/StringBuffer 	
+
+Solution for the code is 
+package Day5.demo;
+import java.util.*;
+
+public class StringPalindrome {
+
+	public static void main(String[] args) {
+		Scanner sc= new Scanner (System.in);
+		System.out.println("Enter the String  ");
+		String s1=sc.nextLine();
+		String s2="";
+		int len = s1.length();
+		for(int i=len-1;i>=0;i--)
+		{
+			s2=s2+s1.charAt(i);
+		}
+		if(s1.equals(s2))
+		{
+			System.out.println("The give String is palindrome");
+		}
+		else
+			System.out.println("The give String is not palindrome");
+		
+	}
+
+}
+----------------------------------------------------------------------------------------------------------------
+2 	
+
+ Given two strings, append them together (known as "concatenation") and return the result. However, if the concatenation creates a double-char, then omit one of the chars.
+ If the inputs are “Mark” and “Kate” then the ouput should be “markate”. (The output should be in lowercase)
+
+	String/StringBuffer 	
+soultion of the code is 
+
+
+
+public class Append2Strings {
+
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		System.out.println("Enter the First String");
+		String s1= sc.nextLine();
+		System.out.println("Enter the Secound String");
+		String s2= sc.nextLine();
+		String s3="";
+		int len1=s1.length();
+		char ar= s1.charAt((len1-1));
+		int len2=s2.length();
+		char ar1=s2.charAt(0);
+		if(ar==ar1)
+		{
+			char[] f=s2.toCharArray();
+			for(int i=1;i<len2-1;i++)
+			{
+				s3=s3+f[i];
+			}
+		}
+		
+		/*int a=s1.codePointAt(len1-1);
+		System.out.println(s3.concat(s2)); */
+		System.out.println(s3);
+
+	}
+
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3 	
+
+ Given a string, return a new string made of n copies of the first 2 chars of the original string where n is the length of the string. The string may be any length. If there are fewer than 2 chars, use whatever is there.
+If input is "Wipro" then output should be "WiWiWiWiWi".
+
+	String/StringBuffer 	
+
+4 	
+
+ Given a string of even length, return the first half. So the string "CatDog" yields "Cat". If the string length is odd number then return null.
+
+	String/StringBuffer 	
+
+5 	
+
+ Given a string, return a version without the first and last char, so "Wipro" yields "ipr". The string length will be at least 2.
+
+	String/StringBuffer 	
+
+6 	
+
+ Given 2 strings, a and b, return a string of the form short+long+short, with the shorter string on the outside and the longer string on the inside. The strings will not be the same length, but they may be empty (length 0). If input is "hi" and "hello", then output will be "hihellohi".
+
+	String/StringBuffer 	
+
+7 	
+
+ Given a string, if the first or last chars are 'x', return the string without those 'x' chars, 
+and otherwise return the string unchanged. If the input is "xHix", then output is "Hi".
+
+	String/StringBuffer 	
+
+8 	
+
+ Given two strings, word and a separator, return a big string made of count occurrences of the word, separated by the separator string.
+if the inputs are "Wipro","X" and 3 then the output is "WiproXWiproXWipro".
+
+	String/StringBuffer 	
+
+9 	
+
+ Return a version of the given string, where for every star () in the string the star and the chars immediately to its left and right are gone. 
+So "ab*cd" yields "ad" and "ab*cd" also yields "ad".
+
+	String/StringBuffer 	
+
+10 	
+
+ Given two strings, a and b, create a bigger string made of the first char of a, the first char of b, the second char of a, the second char of b, and so on. Any leftover chars go at the end of the result.
+If the inputs are "Hello" and "World", then the output is "HWeolrllod".
+
+	String/StringBuffer 	
+
+11 	
+
+ Given two strings, a and b, create a bigger string made of the first char of a, the first char of b, the second char of a, the second char of b, and so on.
+ Any leftover chars go at the end of the result. If input is “abc” and “xyz”, then output should be “axbycz”.
+
+	String/StringBuffer 	
+
+12 	
+
+ Given a string and an int n, return a string made of n repetitions of the last n characters of the string. 
+You may assume that n is between 0 and the length of the string, inclusive. For example if the inputs are “Wipro” and 3, then the output should be “propropro”.
+
+	String/StringBuffer 	
+
+solution for this code is
+package Day5.demo;
+
+import java.util.Scanner;
+
+public class StringNRepetationofNchar {
+
+	public static void main(String[] args) {
+		Scanner sc= new Scanner (System.in);
+		System.out.println("Enter the first String  ");
+		String a=sc.next();
+		System.out.println("Enter a NUmber  ");
+		int x=sc.nextInt();
+		String s="";
+		char arr[]=a.toCharArray();
+		for(int i=x-1;i<a.length();i++)
+		{
+			s=s+arr[i];
+		}
+		String s1=s;
+		for(int i=0;i<x-1;i++)
+		{
+			s1=s1+s;
+		}
+		System.out.println(s1);
+
+	}
+
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+13 	
+
+ Given a string and a non-empty word string, return a string made of each char 
+just before and just after every appearance of the word in the string. 
+Ignore cases where there is no char before or after the word, and a char may 
+be included twice if it is between two words.
+
+If inputs are "abcXY123XYijk" and "XY", output should be "c13i".
+If inputs are "XY123XY" and "XY", output should be "13".
+If inputs are "XY1XY" and "XY", output should be "11".
+
+	String/StringBuffer
+
+
+
+
+
+
+
+
+
+
+
+************************************************************************************************************************************************************************
+						DAy 6
+
+
+1 	
+
+ Create two threads and assign names ‘Scooby’ and ‘Shaggy’ to the two threads. Display both thread names.
+
+	Setting the name of the thread. 	
+
+2 	
+
+ store colours in the form of an array
+ex: String colours[]={"white","blue","black","green","red","yellow"};
+display all colours repeatedly by generating colour index from Random class. If the random colour index matches to red stop display.
+Note: perform this task by implementing Runnabe interface
+
+	Thread creation 	
+
+
+solution for this code is
+package Day6.demo;
+
+import java.util.Random;
+import java.util.RandomAccess;
+
+/*
+ * store colours in the form of an array
+ex: String colours[]={"white","blue","black","green","red","yellow"};
+display all colours repeatedly by generating colour index from Random class. 
+If the random colour index matches to red stop display.
+Note: perform this task by implementing Runnabe interface
+
+	Thread creation 
+ */
+class ColourRandom extends Thread implements Runnable{
+
+	public void run() {
+		
+		String a[]={"white","blue","black","green","red","yellow"};
+		int len= a.length;
+		String b;
+		Random random= new Random();
+		/*String arr= colours.toString();*/
+		for(int i=0;i<len;i++)
+		{
+			int select = random.nextInt(len);
+		
+		System.out.println("selected"+ a[select]);
+		
+		if(a[select]== "red")
+		{
+			break;
+		}
+		}
+		
+		
+		
+	}
+	
+	
+	
+}
+public class ColourRandomClassRunnable {
+
+	public static void main(String[] args) {
+		String colours[]={"white","blue","black","green","red","yellow"};
+		
+		ColourRandom c= new ColourRandom();
+		c.start();
+	}
+
+}
+
+
+
+
+3 	
+
+1. Create class of SalesPersons as a thread that will display    fives sales persons name.
+2. Create a class as Days as other Thread that has array of seven days.
+3. Call the instance of SalesPersons in Days and start both the 
+  threads
+4. suspend SalesPersons on Sunday and resume on wednesday 
+Note: use suspend, resume methods from thread
+
+	Multi Threads creation
+
+
+
+
+
+No. 	Hands-on Assignment 	Topics Covered 	Status
+
+1 	
+
+ Create a thread which prints 1 to 10. After printing 5, there should be a delay of 5000 milliseconds before printing 6
+
+	Thread Control Mechanism 	
+
+2 	
+
+ Create two threads, one thread to display all even numbers between 1 & 20, another to display odd numbers between 1 & 20.
+Note: Display all even numbers followed by odd numbers
+Hint: use join
+
+	Use of join method and thread control mechanism 	
+
+soultion for this code is 
+package Day6.demo;
+/*
+ * create two threads, one thread to display all even numbers between 1 & 20, another to display odd numbers between 1 & 20.
+Note: Display all even numbers followed by odd numbers
+Hint: use join
+ */
+class Even extends Thread
+{
+	public void run()
+	{
+		
+		for(int i =1;i<=20;i++)
+		{
+			
+			if(i%2==0)
+					System.out.print(i +" ");	
+		}
+	}
+	
+}
+class Odd extends Thread
+{
+	public void run()
+	{
+		
+		for(int i =1;i<=20;i++)
+		{
+			
+			if(i%2!=0)
+					System.out.print(i +" ");	
+		}
+	}
+	
+}
+public class EvenoddThreadwithjoin {
+
+	public static void main(String[] args) {
+		Thread a= new Even();
+		a.start();
+		try {
+			a.join();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		Thread o= new Odd();
+		o.start();
+	}
+
+}
+
+
+
+
+
+
+3 	
+
+ Create three threads- with different priorities – MAX, MIN, NORM- and start the threads at the same time. Observe the completion of the threads.
+
+	Thread Priorities
+
+
+
+
+
+
+
+soultion for this code is 
+
+
+
+
+
+
+
+package Day6.demo;
+/*
+ *  Create three threads- with different priorities – MAX, MIN, NORM- and start the threads at the same time. 
+ *  Observe the completion of the threads.
+ */
+
+class Scoobydoo extends Thread{
+	
+	public void run() {
+		
+		System.out.println("hi i am Scooby is first ");
+		
+	}
+	
+}public class ThreadPriority {
+
+	public static void main(String[] args) {
+		
+		Thread a= new Scoobydoo();
+		Thread b= new Scooby();
+		Thread c= new Shaggy();
+
+		System.out.println("Priority of Thread a is : " + a.getPriority());
+		System.out.println("Priority of Thread b is : " + a.getPriority());
+		System.out.println("Priority of Thread c is : " + a.getPriority());
+		
+		a.setPriority(6);
+		a.start();
+		b.setPriority(3);
+		b.start();
+		c.setPriority(9);
+		c.start();
+		
+	}
+
+}
