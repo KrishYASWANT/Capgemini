@@ -1,0 +1,344 @@
+
+1. Write a SQL statement to create a simple table countries including columns country_id,country_name and region_id.				@
+
+dummy=# CREATE TABLE countries(
+dummy(# country_id BIGSERIAL NOT NULL PRIMARY KEY,
+dummy(# country_name VARCHAR(50) NOT NULL,
+dummy(# region_id VARCHAR(50) );
+CREATE TABLE
+dummy=# \d
+                    List of relations
+ Schema |           Name           |   Type   |  Owner
+--------+--------------------------+----------+----------
+ public | countries                | table    | postgres
+ public | countries_country_id_seq | sequence | postgres
+ public | person                   | table    | postgres
+ public | person_id_seq            | sequence | postgres
+(4 rows)
+
+
+2. Write a SQL statement to create a simple table countries including columns country_id,country_name and region_id which already exist.	@
+
+
+dummy=# CREATE TABLE countries(
+dummy(# country_id BIGSERIAL NOT NULL PRIMARY KEY,
+dummy(# country_name VARCHAR(50) NOT NULL,
+dummy(# region_id VARCHAR(50) );
+ERROR:  relation "countries" already exists
+
+3. Write a SQL statement to create the structure of a table dup_countries similar to countries.							@
+
+
+dummy=# CREATE TABLE dup_countries(
+dummy(# country_id BIGSERIAL NOT NULL PRIMARY KEY,
+dummy(# country_name VARCHAR(50) NOT NULL,
+dummy(# region_id VARCHAR(50) );
+CREATE TABLE
+dummy=# \d
+                      List of relations
+ Schema |             Name             |   Type   |  Owner
+--------+------------------------------+----------+----------
+ public | countries                    | table    | postgres
+ public | countries_country_id_seq     | sequence | postgres
+ public | dup_countries                | table    | postgres
+ public | dup_countries_country_id_seq | sequence | postgres
+ public | person                       | table    | postgres
+ public | person_id_seq                | sequence | postgres
+(6 rows)
+
+
+4. Write a SQL statement to create a duplicate copy of countries table including structure and data by name dup_countries.			@
+
+dummy=# INSERT INTO countries(country_name ,region_id)
+dummy-# VALUES('INDIA','45');
+INSERT 0 1
+dummy=# select * from countries;
+ country_id | country_name | region_id
+------------+--------------+-----------
+          1 | INDIA        | 45
+(1 row)
+
+
+
+5. Write a SQL statement to create a table countries set a constraint NULL.									@
+
+dummy=# INSERT INTO countries(country_name)
+dummy-# VALUES('USA');
+INSERT 0 1
+dummy=# select * from countries;
+ country_id | country_name | region_id
+------------+--------------+-----------
+          1 | INDIA        | 45
+          2 | USA          |
+(2 rows)
+
+
+
+
+insert
+
+1. Write a SQL statement to insert a record with your own value into the table countries against each column.
+
+Here in the following is the structure of the table countries.
+
+    Column    |         Type          | Modifiers
+--------------+-----------------------+-----------
+ country_id   | character varying(2)  |
+ country_name | character varying(40) |
+ region_id    | numeric(10,0)         |
+ 
+
+dummy=# INSERT INTO countries(country_name ,region_id)
+dummy-# VALUES('NEPAL','25'),('UK','10'),('RUSSIA','20');
+INSERT 0 3
+dummy=# select * from countries;
+ country_id | country_name | region_id
+------------+--------------+-----------
+          1 | INDIA        | 45
+          2 | USA          |
+          3 | NEPAL        | 25
+          4 | UK           | 10
+          5 | RUSSIA       | 20
+(5 rows)
+
+
+
+2. Write a SQL statement to insert one row into the table countries against the column country_id and country_name.
+
+Here in the following is the structure of the table countries.
+
+    Column    |         Type          | Modifiers
+--------------+-----------------------+-----------
+ country_id   | character varying(2)  |
+ country_name | character varying(40) |
+ region_id    | numeric(10,0)         |
+Click me to see the solution
+
+3. Write a SQL statement to create duplicates of countries table named country_new with all structure and data.
+
+Here in the following is the structure of the table countries.
+
+    Column    |         Type          | Modifiers
+--------------+-----------------------+-----------
+ country_id   | character varying(2)  |
+ country_name | character varying(40) |
+ region_id    | numeric(10,0)         |
+Click me to see the solution
+
+4. Write a SQL statement to insert NULL values into region_id column for a row of countries table.				@
+
+
+dummy=# INSERT INTO countries(country_name ,region_id)
+dummy-# VALUES('NEPAL','25'),('UK','10'),('RUSSIA','20');
+INSERT 0 3
+dummy=# select * from countries;
+ country_id | country_name | region_id
+------------+--------------+-----------
+          1 | INDIA        | 45
+          2 | USA          |
+          3 | NEPAL        | 25
+          4 | UK           | 10
+          5 | RUSSIA       | 20
+(5 rows)
+
+
+
+
+
+Click me to see the solution
+
+5. Write a SQL statement to insert 3 rows by a single insert statement.								@
+
+
+dummy=# INSERT INTO countries(country_name ,region_id)
+dummy-# VALUES('NEPAL','25'),('UK','10'),('RUSSIA','20');
+INSERT 0 3
+
+
+
+select
+
+1. Write a query to display the names (first_name, last_name) using an alias name “First Name", "Last Name".
+
+
+
+dummy=# INSERT INTO employee( First_name, last_name, salary )
+dummy-#  VALUES('hello','world',1000),('paul','kim',1999),('yash','krish',2000),('hari','sai',2000);
+
+
+dummy=# SELECT e.first_name AS "First NAME" , e.last_name AS  "LASTNAME"
+dummy-# FROM employee AS e
+dummy-# select * from employee;
+
+2. Write a query to get a unique department ID from employee table.
+3. Write a query to get the names (first_name, last_name), salary and 15% of salary as PF for all the employees.		@
+
+
+dummy=# select * from employee;
+ id | first_name | last_name | salary | pf
+----+------------+-----------+--------+----
+  1 | hello      | world     |   1000 |
+  2 | paul       | kim       |   1999 |
+  3 | yash       | krish     |   2000 |
+  4 | hari       | sai       |   2000 |
+(4 rows)
+
+
+dummy=# UPDATE employee SET pf = 0.15*salary;
+UPDATE 4
+dummy=# select * from employee;
+ id | first_name | last_name | salary |   pf
+----+------------+-----------+--------+--------
+  1 | hello      | world     |   1000 |    150
+  2 | paul       | kim       |   1999 | 299.85
+  3 | yash       | krish     |   2000 |    300
+  4 | hari       | sai       |   2000 |    300
+(4 rows)
+
+
+4. Write a query to get the employee ID, names (first_name, last_name) and salary in ascending order according to their salary. @
+
+
+
+dummy=# SELECT * FROM employee ORDER BY salary ASC;
+ id | first_name | last_name | salary |   pf
+----+------------+-----------+--------+--------
+  1 | hello      | world     |   1000 |    150
+  2 | paul       | kim       |   1999 | 299.85
+  3 | yash       | krish     |   2000 |    300
+  4 | hari       | sai       |   2000 |    300
+(4 rows)
+
+
+5.Write a query to get the number of employees working with the company.
+
+
+dummy=# SELECT id FROM employee;
+ id
+----
+  1
+  2
+  3
+  4
+(4 rows)
+
+
+
+
+
+
+dummy=# CREATE TABLE COMPANY(
+dummy(# EMPLOYEE_ID INT NOT NULL PRIMARY KEY,
+dummy(# FIRST_NAME VARCHAR(50) NOT NULL,
+dummy(# LAST_NAME VARCHAR(50),
+dummy(# EMAIL VARCHAR(70),
+dummy(# PHONE_NUMBER  VARCHAR(70),
+dummy(# HIRE_DATE DATE NOT NULL,
+dummy(# JOB_ID  VARCHAR(70),
+dummy(# SALARY REAL,
+dummy(# COMMISSION_PCT REAL,
+dummy(# MANAGER_ID INT,
+dummy(# DEPARTMENT_ID INT);
+
+
+dummy=# INSERT INTO COMPANY( employee_id , first_name , last_name , email , phone_number , hire_date , job_id , salary , commission_pct ,manager_id ,department_id)  
+ VALUES(100,'Steven','King','SKING','515.123.4567',date '1987-06-17' ,'AD_PRES', 24000.00,  0.00,0,90);
+INSERT 0 1
+
+
+1. Write a query to display the name, including first_name and last_name and salary for all employees whose salary is out of the range between $10,000 and $15,000.
+
+
+
+dummy=# select first_name,last_name,salary from company WHERE salary<=10000 OR salary>=15000;
+ first_name | last_name | salary
+------------+-----------+--------
+ Steven     | King      |  24000
+ Lex        | De Haan   |  17000
+ Alexander  | Hunold    |   9000
+ Bruce      | Ernst     |   6000
+ David      | Austin    |   4800
+ Valli      | Pataballa |   4800
+(6 rows)
+
+2. Write a query to display the name, including first_name and last_name, and department ID who works in the department 30 or 100 and arrange the result in ascending order according to the department ID.
+
+dummy=# select first_name,last_name,department_id FROM company WHERE department_id>30 OR department_id<100 ORDER BY department_id ASC;
+ first_name | last_name | department_id
+------------+-----------+---------------
+ Alexander  | Hunold    |            60
+ Bruce      | Ernst     |            60
+ David      | Austin    |            60
+ Valli      | Pataballa |            60
+ Steven     | King      |            90
+ Lex        | De Haan   |            90
+(6 rows)
+
+
+3. Write a query to display the name, including first_name and last_name, and salary who works in the department either 30 or 100 and salary is out of the range between $10,000 and $15,000.
+
+
+dummy=# select first_name,last_name,salary FROM company WHERE department_id>30 OR department_id<100  AND salary<=10000 OR salary>=15000;
+ first_name | last_name | salary
+------------+-----------+--------
+ Steven     | King      |  24000
+ Lex        | De Haan   |  17000
+ Alexander  | Hunold    |   9000
+ Bruce      | Ernst     |   6000
+ David      | Austin    |   4800
+ Valli      | Pataballa |   4800
+(6 rows)
+
+
+4. Write a query to display the name, including first_name and last_name and hire date for all employees who were hired in 1987.
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME  | LAST_NAME   | EMAIL    | PHONE_NUMBER       | HIRE_DATE  | JOB_ID     | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+
+|         100 | Steven      | King        | SKING    | 515.123.4567       | 1987-06-17 | AD_PRES    | 24000.00 |           0.00 |          0 |   	  90 |
+|         101 | Neena       | Kochhar     | NKOCHHAR | 515.123.4568       | 1987-06-18 | AD_VP      | 17000.00 |           0.00 |        100 |            90 |
+|         102 | Lex         | De Haan     | LDEHAAN  | 515.123.4569       | 1987-06-19 | AD_VP      | 17000.00 |           0.00 |        100 |            90 |
+|         103 | Alexander   | Hunold      | AHUNOLD  | 590.423.4567       | 1987-06-20 | IT_PROG    |  9000.00 |           0.00 |        102 |            60 |
+|         104 | Bruce       | Ernst       | BERNST   | 590.423.4568       | 1987-06-21 | IT_PROG    |  6000.00 |           0.00 |        103 |            60 |
+|         105 | David       | Austin      | DAUSTIN  | 590.423.4569       | 1987-06-22 | IT_PROG    |  4800.00 |           0.00 |        103 |            60 |
+|         106 | Valli       | Pataballa   | VPATABAL | 590.423.4560       | 1987-06-23 | IT_PROG    |  4800.00 |           0.00 |        103 |            60 |
+
+
+dummy=# select first_name,last_name,salary,hire_date FROM company WHERE hire_date::text LIKE'1987%';
+ first_name | last_name | salary | hire_date
+------------+-----------+--------+------------
+ Steven     | King      |  24000 | 1987-06-17
+ Lex        | De Haan   |  17000 | 1987-06-19
+ Alexander  | Hunold    |   9000 | 1987-06-20
+ Bruce      | Ernst     |   6000 | 1987-06-21
+ David      | Austin    |   4800 | 1987-06-22
+ Valli      | Pataballa |   4800 | 1987-06-23
+(6 rows)
+
+
+
+										/*/*/*END*/*/*/ 
+
+
+******************************************************************************************************************************************************************************************
+(101,'Neena','Kochhar'   , 'NKOCHHAR', '515.123.4568' ,1987-06-18, 'AD_VP', 17000.00 ,  0.00,100 ,  90 )
+|         102 | Lex         | De Haan     | LDEHAAN  | 515.123.4569       | 1987-06-19 | AD_VP      | 17000.00 |           0.00 |        100 |            90 |
+|         103 | Alexander   | Hunold      | AHUNOLD  | 590.423.4567       | 1987-06-20 | IT_PROG    |  9000.00 |           0.00 |        102 |            60 |
+|         104 | Bruce       | Ernst       | BERNST   | 590.423.4568       | 1987-06-21 | IT_PROG    |  6000.00 |           0.00 |        103 |            60 |
+|         105 | David       | Austin      | DAUSTIN  | 590.423.4569       | 1987-06-22 | IT_PROG    |  4800.00 |           0.00 |        103 |            60 |
+|         106 | Valli       | Pataballa   | VPATABAL | 590.423.4560       | 1987-06-23 | IT_PROG    |  4800.00 |           0.00 |        103 |            60 |
+
+
+
+
+  VALUES(102 ,'Lex','De Haan','LDEHAAN','515.123.4569','1987-06-19','AD_VP',17000.00, 
+		0.00 ,100,90),(103,'Alexander','Hunold','AHUNOLD','590.423.4567','1987-06-20','IT_PROG',9000.00, 0.00 ,102 ,60 ),(104,'Bruce','Ernst','BERNST','590.423.4568','1987-06-21','IT_PROG',6000.00,0.00,103,60),
+		(105 ,'David','Austin','DAUSTIN','590.423.4569','1987-06-22','IT_PROG',4800.00,0.00,103,60),(106,'Valli','Pataballa','VPATABAL','590.423.4560','1987-06-23','IT_PROG',4800.00,0.00,103,60);
+|        
+(101 ,'Neena','Kochhar','NKOCHHAR','515.123.4568','1987-06-18' ,'AD_VP',17000.00, 0.00, 100,90 ),
+ 102 | Lex         | De Haan     | LDEHAAN  | 515.123.4569       | 1987-06-19 | AD_VP      | 17000.00 |           0.00 |        100 |            90 |
+|         (103,'Alexander','Hunold','AHUNOLD','590.423.4567','1987-06-20','IT_PROG',9000.00, 0.00 ,102 ,60 )
+|         (104,'Bruce','Ernst','BERNST','590.423.4568','1987-06-21','IT_PROG',6000.00,0.00,103,60)
+|         (105 ,'David','Austin','DAUSTIN','590.423.4569','1987-06-22','IT_PROG',4800.00,0.00,103,60)
+|         (106,'Valli','Pataballa','VPATABAL','590.423.4560','1987-06-23','IT_PROG',4800.00,0.00,103,60)
+
+
